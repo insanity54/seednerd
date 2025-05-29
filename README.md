@@ -1,0 +1,6 @@
+# seednerd
+
+## Dependencies
+
+* xdotool
+* dotenvx
