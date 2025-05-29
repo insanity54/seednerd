@@ -1,0 +1,21 @@
+{
+  "name": "seednerd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "enter": "node scripts/enter.js",
+    "luanti": "node scripts/luanti.js",
+    "index": "dotenvx run -f ./.env -- node index.js",
+    "start": "bash -c 'while true; do npm run index; sleep 2; done'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.8.1",
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "zod": "^3.25.36"
+  }
+}
