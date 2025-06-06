@@ -5,7 +5,7 @@ const path = require('path')
 
 const { result } = concurrently(
     [
-        { command: 'npm:enter', name: 'enter' },
+        { command: 'npm:macro', name: 'macro' },
         { command: 'npm:luanti', name: 'luanti' }
     ],
     {

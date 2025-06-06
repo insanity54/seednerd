@@ -20,7 +20,8 @@ async function assertLuantiExists() {
 }
 
 async function launch() {
-    await execAsync(`luanti --address ${env.LUANTI_ADDRESS} --name ${env.LUANTI_USERNAME} --password ${env.LUANTI_PASSWORD} --console --go --random-input`);
+    // await execAsync(`luanti --address ${env.LUANTI_ADDRESS} --name ${env.LUANTI_USERNAME} --password ${env.LUANTI_PASSWORD} --console --go --random-input`);
+    await execAsync(`luanti --address ${env.LUANTI_ADDRESS} --name ${env.LUANTI_USERNAME} --password ${env.LUANTI_PASSWORD} --console --go`);
 }
 
 // Randomized loop
