@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "enter": "node scripts/enter.js",
+    "macro": "node scripts/macro.js",
     "luanti": "node scripts/luanti.js",
     "index": "dotenvx run -f ./.env -- node index.js",
     "start": "bash -c 'while true; do npm run index; sleep 2; done'"
