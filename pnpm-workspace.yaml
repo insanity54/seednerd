@@ -1,0 +1,7 @@
+ignoredBuiltDependencies:
+
+
+onlyBuiltDependencies:
+  - onnxruntime-node
+  - protobufjs
+  - sharp
