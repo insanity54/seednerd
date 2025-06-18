@@ -1,26 +1,44 @@
 // index.js
 
-const concurrently = require('concurrently');
-const path = require('path')
+const { assertLuantiExists, launch } = require("./src/luanti.js");
+const { chatClient, readChat, startChatClient } = require('./src/chat.js');
+const { actOnMessage } = require('./src/bot.js');
+const { assertXdotoolExists } = require("./src/controls.js");
 
-const { result } = concurrently(
-    [
-        { command: 'npm:macro', name: 'macro' },
-        { command: 'npm:luanti', name: 'luanti' }
-    ],
-    {
-        prefix: 'name',
-        killOthers: ['failure', 'success'],
-        cwd: path.resolve(__dirname, 'scripts'),
-    },
-);
+async function main() {
+    await assertLuantiExists();
+    await assertXdotoolExists();
+    startChatClient(chatClient);
+
+    const chat = readChat();   // async iterator for chat messages
+    const luanti = launch();   // async iterator for luanti process lifecycle
+
+    // Start both generators
+    let nextChat = chat.next();
+    let nextLuanti = luanti.next();
+    let currentPid = null;
+
+    while (true) {
+        const result = await Promise.race([
+            nextChat.then(value => ({ source: 'Chat', value })),
+            nextLuanti.then(value => ({ source: 'Luanti', value })),
+        ]);
 
 
-result.then(
-    () => console.log('✅ All processes exited successfully.'),
-    (err) => {
-        console.error('❌ One or more processes failed:');
-        console.error(err);
-        process.exit(1); // Optional: force a non-zero exit
+        console.debug(`Got value from generator ${result.source}: ${result.value.value}.`);
+
+        // Only advance the generator that just yielded a value
+        if (result.source === 'Chat') {
+            // can i get the yielded value of the current nextLuanti here, so we can pass it to actOnMessage?
+            await actOnMessage(currentPid, result.value.value)
+            nextChat = chat.next();
+        } else {
+            currentPid = result.value.value.pid; // 🧠 store the PID for future use
+            nextLuanti = luanti.next();
+        }
     }
-);
+}
+
+
+
+main()

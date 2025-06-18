@@ -4,3 +4,4 @@
 
 * xdotool
 * dotenvx
+* aplay
