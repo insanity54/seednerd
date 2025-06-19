@@ -25,7 +25,7 @@ async function centerMouse(wid) {
     await execa('xdotool', ['mousemove', x, y])
 }
 
-async function smoothMouseMove(wid, dx, dy, durationMs = 1500, steps = 120) {
+async function smoothMouseMove(wid, dx, dy, durationMs = 500, steps = 120) {
     const stepX = dx / steps;
     const stepY = dy / steps;
     const stepDelay = durationMs / steps;
