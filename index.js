@@ -31,7 +31,6 @@ async function main() {
 
         // Only advance the generator that just yielded a value
         if (result.source === 'Chat') {
-            // can i get the yielded value of the current nextLuanti here, so we can pass it to actOnMessage?
             await actOnMessage(currentPid, result.value.value.message)
             nextChat = chat.next();
         } else {
