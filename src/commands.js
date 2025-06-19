@@ -109,7 +109,7 @@ async function turn(wid, direction) {
     const distance = direction === 'right' ? 500 : -500;
     try {
         console.log(`Turning ${direction.charAt(0).toUpperCase() + direction.slice(1)} smoothly`);
-        await smoothMouseMove(wid, distance, 0, 3000);
+        await smoothMouseMove(wid, distance, 0, 1500);
         console.log(`Finished Turning ${direction.charAt(0).toUpperCase() + direction.slice(1)}`);
     } catch (err) {
         console.error(`Failed to turn ${direction}:`, err);
@@ -132,7 +132,7 @@ async function look(wid, direction = 'up') {
 
     try {
         console.log(`Looking ${direction} smoothly`);
-        await smoothMouseMove(wid, 0, offsetY, 3000);
+        await smoothMouseMove(wid, 0, offsetY, 1500);
         console.log(`Finished looking ${direction}`);
     } catch (err) {
         console.error(`Failed to look ${direction}:`, err);
