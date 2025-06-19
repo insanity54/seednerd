@@ -55,7 +55,7 @@ function getRandomChatMessage() {
     }
 
     // we dont want the bot to use certain commands unless a human tells it to.
-    const disabled = ['screenshot', 'sethome', 'spawn', 'look'];
+    const disabled = ['screenshot', 'sethome', 'spawn', 'look', 'esc', 'home'];
     const availableCommands = commands.filter(c => !disabled.includes(c));
 
 
