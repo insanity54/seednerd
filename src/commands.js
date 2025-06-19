@@ -33,13 +33,13 @@ async function enter(wid) {
 
 async function home(wid) {
     await execa('xdotool', ['key', '--window', wid, 'slash']);
-    await execa('xdotool', ['type', '--window', wid, '--delay', '5', 'home']);
+    await execa('xdotool', ['type', '--window', wid, '--delay', '25', 'home']);
     await execa('xdotool', ['key', '--window', wid, 'Return']);
 }
 
 async function sethome(wid) {
     await execa('xdotool', ['key', '--window', wid, 'slash']);
-    await execa('xdotool', ['type', '--window', wid, '--delay', '5', 'sethome']);
+    await execa('xdotool', ['type', '--window', wid, '--delay', '25', 'sethome']);
     await execa('xdotool', ['key', '--window', wid, 'Return']);
 }
 
@@ -49,7 +49,7 @@ async function screenshot(wid) {
 
 async function spawn(wid) {
     await execa('xdotool', ['key', '--window', wid, 'slash']);
-    await execa('xdotool', ['type', '--window', wid, '--delay', '5', 'spawn']);
+    await execa('xdotool', ['type', '--window', wid, '--delay', '25', 'spawn']);
     await execa('xdotool', ['key', '--window', wid, 'Return']);
 }
 
