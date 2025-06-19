@@ -106,7 +106,7 @@ async function jump(wid, direction = 'forward') {
 async function turn(wid, direction) {
     assertWid(wid)
     if (!direction) throw new Error('second arg direction required');
-    const distance = direction === 'right' ? 50 : -50;
+    const distance = direction === 'right' ? 250 : -250;
     try {
         console.log(`Turning ${direction.charAt(0).toUpperCase() + direction.slice(1)} smoothly`);
         await smoothMouseMove(wid, distance, 0, 500);
