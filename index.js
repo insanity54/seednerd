@@ -47,6 +47,7 @@ async function main() {
 
         // Only advance the generator that just yielded a value
         if (result.source === 'Chat') {
+            lastChatTimestamp = now; // reset the timer so we aren't considered idle
             await actOnMessage(currentPid, result.value.value.message)
             nextChat = chat.next();
         } else {
