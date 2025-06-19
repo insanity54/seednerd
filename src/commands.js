@@ -1,7 +1,8 @@
 const { execa } = require('execa');
 const { smoothMouseMove, directionKeyMap } = require('./controls.js');
 const { getRandomPhrase } = require('./random.js');
-const { speak } = require('./tts.js')
+const { speak } = require('./tts.js');
+const { sleep } = require('./timers.js');
 
 const commands = [
     'walk',
@@ -58,8 +59,9 @@ async function spawn(wid) {
     await execa('xdotool', ['key', '--window', wid, 'Return']);
 }
 
-async function walk(wid, direction = 'forward') {
+async function walk(wid, direction = 'forward', duration = 3) {
     assertWid(wid)
+    duration = Math.min(6000, duration * 1000)
     if (!direction) throw new Error('second arg direction required');
     const key = directionKeyMap[direction];
     if (!key) {
@@ -70,9 +72,9 @@ async function walk(wid, direction = 'forward') {
     try {
 
         await execa('xdotool', ['keydown', '--window', wid, key]);
-        console.log(`holding ${key.toUpperCase()} for walk ${direction}`);
+        console.log(`holding ${key.toUpperCase()} for walk ${direction} for ${duration} ms.`);
 
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        await sleep(duration)
 
         await execa('xdotool', ['keyup', '--window', wid, key]);
         console.log(`released ${key.toUpperCase()}`);
@@ -82,9 +84,9 @@ async function walk(wid, direction = 'forward') {
 }
 
 
-async function jump(wid, direction = 'forward') {
+async function jump(wid, direction = 'forward', duration = 3) {
     assertWid(wid)
-    if (!direction) throw new Error('second arg direction required');
+    duration = Math.min(6000, duration * 1000)
     const key = directionKeyMap[direction];
     if (!key) {
         console.error(`Unknown direction "${direction}"`);
@@ -95,9 +97,9 @@ async function jump(wid, direction = 'forward') {
 
         await execa('xdotool', ['keydown', '--window', wid, key]);
         await execa('xdotool', ['keydown', '--window', wid, 'space']);
-        console.log(`holding ${key.toUpperCase()} and SPACE for jump ${direction}`);
+        console.log(`holding ${key.toUpperCase()} and SPACE for jump ${direction} for ${duration} ms`);
 
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, duration));
 
         await execa('xdotool', ['keyup', '--window', wid, key]);
         await execa('xdotool', ['keyup', '--window', wid, 'space']);
