@@ -37,7 +37,7 @@ function startChatClient(chatClient) {
             user,
             message,
             timestamp: new Date(),
-            raw: msg
+            raw: message
         });
     });
 

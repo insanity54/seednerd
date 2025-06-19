@@ -25,12 +25,14 @@ async function main() {
         ]);
 
 
-        console.debug(`Got value from generator ${result.source}: ${result.value.value}.`);
+        console.debug(`Got value from generator ${result.source}: ${JSON.stringify(result.value.value)}.`);
+        console.log(result.value.value)
+
 
         // Only advance the generator that just yielded a value
         if (result.source === 'Chat') {
             // can i get the yielded value of the current nextLuanti here, so we can pass it to actOnMessage?
-            await actOnMessage(currentPid, result.value.value)
+            await actOnMessage(currentPid, result.value.value.message)
             nextChat = chat.next();
         } else {
             currentPid = result.value.value.pid; // 🧠 store the PID for future use
