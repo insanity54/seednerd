@@ -161,12 +161,13 @@ async function say(wid, ...parts) {
 
 
 
-async function punch(wid) {
+async function punch(wid, duration = 3) {
     assertWid(wid)
+    duration = Math.min(6000, duration * 1000)
     try {
         console.log('Punching...');
         await execa('xdotool', ['mousedown', '--window', wid, '1']);
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, duration));
         await execa('xdotool', ['mouseup', '--window', wid, '1']);
         console.log('Finished punch.');
     } catch (err) {
