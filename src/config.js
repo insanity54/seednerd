@@ -10,6 +10,7 @@ const EnvSchema = z.object({
     TWITCH_ACCESS_TOKEN: z.string(),
     TWITCH_BOT_NAME: z.string(),
     ONLINE: z.coerce.boolean(),
+    TEST: z.coerce.boolean(),
     WINDOW_XY: z
         .string()
         .default('0,0')
