@@ -108,6 +108,18 @@ const silly = [
     'my name: scooter. your name: dumbhead.',
 ];
 
+const extremetoaster = [
+    'Just because someone called rat wanted to blow my house so much that he put 1 million nukes in it',
+    'im sad for im noob i dont ave armor',
+    'pls armor in nether and blood sword',
+    'ME REPORTE YOU NOW',
+    'STOP',
+    'IM ADMIN',
+    'stop or me reporte you for spawnkilling',
+    'you can giveme a wings plis',
+    'im here for modding purposes',
+]
+
 
 const animals = [
     "woof", "meow", "quack", "moo", "baa", "neigh", "oink", "ribbit", "buzz", "hiss",
@@ -122,7 +134,7 @@ const animals = [
     "pew", "shree", "meugh", "fwip", "glerk", "blep", "mrow", "boof", "wheeze", "cchirp"
 ];;
 
-const all = silly.concat(animals)
+const all = silly.concat(animals).concat(extremetoaster)
 
 module.exports = {
     silly,

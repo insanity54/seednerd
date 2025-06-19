@@ -54,15 +54,19 @@ function getRandomChatMessage() {
         }
     }
 
-    const command = commands[Math.floor(Math.random() * commands.length)];
+    // we dont want the bot to use certain commands unless a human tells it to.
+    const disabled = ['screenshot', 'sethome', 'spawn', 'look'];
+    const availableCommands = commands.filter(c => !disabled.includes(c));
+
+
+    const command = availableCommands[Math.floor(Math.random() * availableCommands.length)];
     const args = getArgs(command);
 
     return `!${command} ${args.join(' ')}`.trim();
 }
 
 function getRandomPhrase() {
-    const ph = phrases.all
-    return ph[Math.floor(Math.random() * ph.length)];
+    return all[Math.floor(Math.random() * all.length)];
 }
 
 module.exports = {
