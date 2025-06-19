@@ -18,6 +18,7 @@ const commands = [
     'look',
     'turn',
     'screenshot',
+    'esc',
 ];
 
 
@@ -25,6 +26,10 @@ const commands = [
 
 function assertWid(wid) {
     if (!wid) throw new Error('first arg wid required');
+}
+
+async function esc(wid) {
+    await execa('xdotool', ['key', '--window', wid, 'Escape']);
 }
 
 async function enter(wid) {
@@ -103,23 +108,26 @@ async function jump(wid, direction = 'forward') {
 }
 
 
-async function turn(wid, direction) {
-    assertWid(wid)
-    if (!direction) throw new Error('second arg direction required');
-    const distance = direction === 'right' ? 250 : -250;
+async function turn(wid, direction = 'right', distance = 3, durationSeconds = 0.5) {
+    assertWid(wid);
+
+    // Convert "distance" to pixels, preserving direction
+    const dx = distance * 100 * (direction === 'right' ? 1 : -1);
+    const durationMs = Math.min(2000, durationSeconds * 1000);
+
     try {
-        console.log(`Turning ${direction.charAt(0).toUpperCase() + direction.slice(1)} smoothly`);
-        await smoothMouseMove(wid, distance, 0, 500);
-        console.log(`Finished Turning ${direction.charAt(0).toUpperCase() + direction.slice(1)}`);
+        console.log(`Turning ${direction} smoothly for distance ${distance}`);
+        await smoothMouseMove(wid, dx, 0, durationMs);
+        console.log(`Finished turning ${direction}`);
     } catch (err) {
         console.error(`Failed to turn ${direction}:`, err);
     }
 }
 
 
-async function look(wid, direction = 'up') {
+async function look(wid, direction = 'up', duration = 0.5) {
     assertWid(wid)
-    if (!direction) throw new Error('seocnd arg direction required');
+    duration = Math.min(2000, duration * 1000)
     const offsetY = {
         up: -250,
         down: 250
@@ -132,7 +140,7 @@ async function look(wid, direction = 'up') {
 
     try {
         console.log(`Looking ${direction} smoothly`);
-        await smoothMouseMove(wid, 0, offsetY, 500);
+        await smoothMouseMove(wid, 0, offsetY, duration);
         console.log(`Finished looking ${direction}`);
     } catch (err) {
         console.error(`Failed to look ${direction}:`, err);
@@ -237,5 +245,6 @@ module.exports = {
     sethome,
     home,
     spawn,
+    esc,
     commands,
 }

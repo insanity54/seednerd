@@ -14,6 +14,7 @@ const {
     screenshot,
     look,
     turn,
+    esc,
     drop,
 } = require('./commands.js');
 const { getLuantiWindowId } = require('./luanti.js');
@@ -33,6 +34,7 @@ const commandMap = {
     screenshot,
     look,
     turn,
+    esc,
     drop,
 };
 
@@ -58,6 +60,7 @@ function getCommand(message) {
 }
 
 async function actOnMessage(pid, message) {
+    console.log(`actOnMessage called with pid=${pid} message=${message}`)
 
     if (!pid) throw new Error('first param passed to actOnMessage must be Luanti process ID');
     if (!message) throw new Error('second param passed to actOnMessage must be a message');

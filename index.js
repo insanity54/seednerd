@@ -48,6 +48,8 @@ async function main() {
         // Only advance the generator that just yielded a value
         if (result.source === 'Chat') {
             lastChatTimestamp = Date.now(); // reset the timer so we aren't considered idle
+            const payload = result.value.value
+            console.log(`payload:${JSON.stringify(payload)}`)
             await actOnMessage(currentPid, result.value.value.message)
             nextChat = chat.next();
         } else {

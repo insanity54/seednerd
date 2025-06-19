@@ -25,17 +25,42 @@ async function centerMouse(wid) {
     await execa('xdotool', ['mousemove', x, y])
 }
 
-async function smoothMouseMove(wid, dx, dy, durationMs = 250, steps = 120) {
-    const stepX = dx / steps;
-    const stepY = dy / steps;
+// async function smoothMouseMove(wid, dx, dy, durationMs = 250, steps = 120) {
+//     const stepX = dx / steps;
+//     const stepY = dy / steps;
+//     const stepDelay = durationMs / steps;
+
+//     await centerMouse(wid)
+//     for (let i = 0; i < steps; i++) {
+//         await execa('xdotool', ['mousemove_relative', '--', stepX, stepY]);
+//         await new Promise(resolve => setTimeout(resolve, stepDelay));
+//     }
+// }
+async function smoothMouseMove(wid, dx, dy, durationMs = 500, steps = 120) {
+    await centerMouse(wid);
+
     const stepDelay = durationMs / steps;
 
-    await centerMouse(wid)
+    let accX = 0;
+    let accY = 0;
+
     for (let i = 0; i < steps; i++) {
-        await execa('xdotool', ['mousemove_relative', '--', stepX, stepY]);
+        accX += dx / steps;
+        accY += dy / steps;
+
+        const moveX = Math.round(accX);
+        const moveY = Math.round(accY);
+
+        if (moveX !== 0 || moveY !== 0) {
+            await execa('xdotool', ['mousemove_relative', '--', moveX.toString(), moveY.toString()]);
+            accX -= moveX;
+            accY -= moveY;
+        }
+
         await new Promise(resolve => setTimeout(resolve, stepDelay));
     }
 }
+
 
 
 

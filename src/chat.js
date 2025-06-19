@@ -48,6 +48,11 @@ function startChatClient(chatClient) {
 
 // Read chat as an async generator
 async function* readChat() {
+    if (env.TEST) {
+        setInterval(() => {
+            receivedMessages.push({ message: getRandomChatMessage() })
+        }, 3000)
+    }
 
     while (true) {
         if (receivedMessages.length > 0) {
