@@ -14,10 +14,10 @@ const commands = [
     'spawn',
     'home',
     'sethome',
-    'screenshot',
     'drop',
     'look',
     'turn',
+    'screenshot',
 ];
 
 
