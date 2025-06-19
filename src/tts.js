@@ -40,11 +40,12 @@ async function speak(text) {
     });
 
     // const voice = getRandomVoice()
+    const voice = 'am_liam'
     console.log(`speak() using voice=${voice}`);
     // console.log('generating speech')
     // console.log(tts.list_voices())
     const audio = await tts.generate(text, {
-        voice: 'am_liam'
+        voice
     });
     const filePath = join(tmpdir(), 'audio.wav')
     await audio.save(filePath);
