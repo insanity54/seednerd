@@ -4,6 +4,7 @@ const { assertLuantiExists, launch } = require("./src/luanti.js");
 const { chatClient, readChat, startChatClient } = require('./src/chat.js');
 const { actOnMessage } = require('./src/bot.js');
 const { assertXdotoolExists } = require("./src/controls.js");
+const { getRandomChatMessage } = require('./src/random.js');
 
 async function main() {
     await assertLuantiExists();
@@ -12,11 +13,34 @@ async function main() {
 
     const chat = readChat();   // async iterator for chat messages
     const luanti = launch();   // async iterator for luanti process lifecycle
+    // if (env.TEST) {
+    //     setInterval(() => {
+    //         receivedMessages.push(getRandomChatMessage())
+    //     }, 3000)
+    // }
+
 
     // Start both generators
     let nextChat = chat.next();
     let nextLuanti = luanti.next();
     let currentPid = null;
+    let lastChatTimestamp = Date.now();
+
+    // Periodically check for idle chat
+    const idleCheckInterval = 3_000; // 3 seconds
+    const idleThreshold = 30_000;     // 30 seconds
+
+    setInterval(async () => {
+        const now = Date.now();
+        if (now - lastChatTimestamp > idleThreshold) {
+            console.log("No chat message received in over a minute. Sending synthetic message.");
+            const fakeMessage = getRandomChatMessage();
+            console.log('fakeMessage as follows')
+            console.log(fakeMessage)
+            // await actOnMessage(currentPid, fakeMessage);
+            lastChatTimestamp = now; // reset the timer so we don't spam
+        }
+    }, idleCheckInterval);
 
     while (true) {
         const result = await Promise.race([
