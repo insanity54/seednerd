@@ -216,6 +216,7 @@ async function select(wid, n = 0) {
 
 async function screenshot(wid) {
     assertWid(wid)
+    await execa('xdotool', ['key', '--window', wid, 'F12']);
 }
 
 

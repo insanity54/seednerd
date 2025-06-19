@@ -26,11 +26,11 @@ async function main() {
 
     setInterval(async () => {
         const now = Date.now();
+        console.log(`checking now=${now} lastChatTimestamp=${lastChatTimestamp} idleThreshold=${idleThreshold}`);
         if (now - lastChatTimestamp > idleThreshold) {
             const fakeMessage = getRandomChatMessage();
             console.log("Chat idle. Sending synthetic message: " + fakeMessage);
             await actOnMessage(currentPid, fakeMessage);
-            lastChatTimestamp = now; // reset the timer so we don't spam
         }
     }, idleCheckInterval);
 
