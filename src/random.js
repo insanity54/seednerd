@@ -2,7 +2,7 @@
 
 const { directions, directionAliases } = require('./directions');
 const { commands } = require('./commands.js');
-const { silly } = require('./phrases.js');
+const { all } = require('./phrases.js');
 
 function pickWeighted(actions) {
     const totalWeight = actions.reduce((sum, action) => sum + action.weight, 0);
@@ -32,7 +32,7 @@ function getRandomChatMessage() {
                 return [directions[Math.floor(Math.random() * directions.length)], duration];
             case 'say':
                 // say some random phrase
-                return [silly[Math.floor(Math.random() * silly.length)]];
+                return [all[Math.floor(Math.random() * all.length)]];
             case 'jump':
                 duration = Math.floor(Math.random() * 10) + 1;
                 return [directions[Math.floor(Math.random() * directions.length)], duration];

@@ -3,7 +3,7 @@ const { execa } = require('execa');
 const { join } = require('path');
 const { tmpdir } = require('os');
 
-// https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md#american-english
+// https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md
 const voices = [
     "af_heart",
     "af_alloy",
@@ -39,12 +39,12 @@ async function speak(text) {
         device: "cpu", // Options: "wasm", "webgpu" (web) or "cpu" (node). If using "webgpu", we recommend using dtype="fp32".
     });
 
-    const voice = getRandomVoice()
+    // const voice = getRandomVoice()
     console.log(`speak() using voice=${voice}`);
     // console.log('generating speech')
     // console.log(tts.list_voices())
     const audio = await tts.generate(text, {
-        voice
+        voice: 'am_liam'
     });
     const filePath = join(tmpdir(), 'audio.wav')
     await audio.save(filePath);
