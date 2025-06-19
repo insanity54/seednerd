@@ -13,12 +13,6 @@ async function main() {
 
     const chat = readChat();   // async iterator for chat messages
     const luanti = launch();   // async iterator for luanti process lifecycle
-    // if (env.TEST) {
-    //     setInterval(() => {
-    //         receivedMessages.push(getRandomChatMessage())
-    //     }, 3000)
-    // }
-
 
     // Start both generators
     let nextChat = chat.next();
@@ -33,11 +27,9 @@ async function main() {
     setInterval(async () => {
         const now = Date.now();
         if (now - lastChatTimestamp > idleThreshold) {
-            console.log("No chat message received in over a minute. Sending synthetic message.");
             const fakeMessage = getRandomChatMessage();
-            console.log('fakeMessage as follows')
-            console.log(fakeMessage)
-            // await actOnMessage(currentPid, fakeMessage);
+            console.log("Chat idle. Sending synthetic message: " + fakeMessage);
+            await actOnMessage(currentPid, fakeMessage);
             lastChatTimestamp = now; // reset the timer so we don't spam
         }
     }, idleCheckInterval);
