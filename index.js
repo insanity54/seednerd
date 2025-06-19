@@ -22,7 +22,7 @@ async function main() {
 
     // Periodically check for idle chat
     const idleCheckInterval = 3_000; // 3 seconds
-    const idleThreshold = 30_000;     // 30 seconds
+    const idleThreshold = 300000;     // 5 minutes
 
     setInterval(async () => {
         const now = Date.now();

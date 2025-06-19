@@ -106,6 +106,8 @@ const silly = [
     'Ping me when logic returns',
     "Life is like a box of chocolates. You never know what you're gonna get.",
     'my name: scooter. your name: dumbhead.',
+    'my wife left me for a lifetime supply of tunafish sandwiches',
+    'ok boomer',
 ];
 
 const extremetoaster = [
@@ -118,6 +120,7 @@ const extremetoaster = [
     'stop or me reporte you for spawnkilling',
     'you can giveme a wings plis',
     'im here for modding purposes',
+    'Get inside now; I will ban you if you don’t',
 ]
 
 
