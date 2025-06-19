@@ -106,10 +106,10 @@ async function jump(wid, direction = 'forward') {
 async function turn(wid, direction) {
     assertWid(wid)
     if (!direction) throw new Error('second arg direction required');
-    const distance = direction === 'right' ? 500 : -500;
+    const distance = direction === 'right' ? 250 : -250;
     try {
         console.log(`Turning ${direction.charAt(0).toUpperCase() + direction.slice(1)} smoothly`);
-        await smoothMouseMove(wid, distance, 0, 1500);
+        await smoothMouseMove(wid, distance, 0, 500);
         console.log(`Finished Turning ${direction.charAt(0).toUpperCase() + direction.slice(1)}`);
     } catch (err) {
         console.error(`Failed to turn ${direction}:`, err);
@@ -121,8 +121,8 @@ async function look(wid, direction = 'up') {
     assertWid(wid)
     if (!direction) throw new Error('seocnd arg direction required');
     const offsetY = {
-        up: -500,
-        down: 500
+        up: -250,
+        down: 250
     }[direction];
 
     if (offsetY === undefined) {
@@ -132,7 +132,7 @@ async function look(wid, direction = 'up') {
 
     try {
         console.log(`Looking ${direction} smoothly`);
-        await smoothMouseMove(wid, 0, offsetY, 1500);
+        await smoothMouseMove(wid, 0, offsetY, 500);
         console.log(`Finished looking ${direction}`);
     } catch (err) {
         console.error(`Failed to look ${direction}:`, err);

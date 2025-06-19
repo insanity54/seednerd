@@ -64,7 +64,7 @@ async function* launch() {
         // xdotool windowmove <window_id> <x> <y>
         const wid = await getLuantiWindowId(proc.pid)
         execa('xdotool', ['windowmove', wid, env.WINDOW_XY[0], env.WINDOW_XY[1]])
-        await sleep(500)
+        await sleep(1500)
         await execa('xdotool', ['key', '--window', wid, 'F11']); // fullscreen
 
         yield { pid: proc.pid, wid } // return the Process ID so we can manipulate the window
