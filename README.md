@@ -15,10 +15,11 @@ All these must be on the $PATH
 
 ## issues
 
-* [ ] Weighted random-- `say` should be invoked very sparingly
+* [ ] ANY chat message resets the idle timer
 * [ ] `!camera` for changing camera
 * [x] `!punch` cannot chop a tree, it is not held long enough
 * [ ] crafting
+* [ ] scooter can get stuck on a vehicle and there's no way to get off
 * [ ] `!help <command>` doesn't give any response
 * [x] `!walk forward <number>` number doesn't have any effect
 * [ ] twitch chat doesn't let chatters post similar messages
@@ -28,3 +29,5 @@ All these must be on the $PATH
 * [x] `!server` command is missing
 * [x] Server info not displayed on rotation
 * [ ] `!look right` should `!turn right`
+* [ ] `/anchors`
+* [ ] invisible exploit-- get on scooter, warp to spawn, warp home, get killed while on scooter.

@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "index": "node index.js",
     "update": "git pull origin master; pnpm install",
-    "start": "bash -c 'while true; do pnpm run update; pnpm run index; sleep 2; done'"
+    "start": "DISPLAY=:0.0 bash -c 'while true; do pnpm run update; pnpm run index; sleep 2; done'"
   },
   "keywords": [
     "luanti",

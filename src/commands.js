@@ -138,7 +138,7 @@ async function look(wid, direction = 'up', duration = 0.5) {
     }
 
     try {
-        console.log(`Looking ${direction} smoothly`);
+        console.log(`Looking ${direction} smoothly for duration=${duration}`);
         await smoothMouseMove(wid, 0, offsetY, duration);
         console.log(`Finished looking ${direction}`);
     } catch (err) {

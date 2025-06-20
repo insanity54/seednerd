@@ -79,6 +79,9 @@ async function actOnMessage(pid, message) {
         } catch (err) {
             console.error(`Failed to run command "${command.name}":`, err);
         }
+
+        // if we did something (acted), we return true.
+        return true
     } catch (e) {
         console.error(`error while acting on message pid=${pid} message=${message}. Error as follows.`);
         console.error(e)

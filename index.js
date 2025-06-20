@@ -48,10 +48,13 @@ async function main() {
 
         // Only advance the generator that just yielded a value
         if (result.source === 'Chat') {
-            lastChatTimestamp = Date.now(); // reset the timer so we aren't considered idle
             const payload = result.value.value
             console.log(`payload:${JSON.stringify(payload)}`)
-            await actOnMessage(currentPid, result.value.value.message)
+            const isActed = await actOnMessage(currentPid, result.value.value.message)
+            if (isActed) {
+                // we got a message that caused an action, so we reset the timer.
+                lastChatTimestamp = Date.now(); // reset the timer so we aren't considered idle
+            }
             nextChat = chat.next();
         } else {
             currentPid = result.value.value.pid; // 🧠 store the PID for future use
