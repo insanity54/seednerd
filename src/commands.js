@@ -154,7 +154,7 @@ async function look(wid, direction = 'up', duration = 0.5) {
 
 async function say(wid, ...parts) {
     assertWid(wid)
-    const msg = parts ? parts.join(' ') : getRandomPhrase();
+    const msg = parts.length > 0 ? parts.join(' ') : getRandomPhrase();
     try {
 
         console.log(`Saying: ${msg}`);
