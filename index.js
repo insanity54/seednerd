@@ -5,6 +5,7 @@ const { chatClient, readChat, startChatClient } = require('./src/chat.js');
 const { actOnMessage } = require('./src/bot.js');
 const { assertXdotoolExists } = require("./src/controls.js");
 const { getRandomChatMessage } = require('./src/random.js');
+const { commands } = require('./src/commands.js');
 
 async function main() {
     await assertLuantiExists();
@@ -28,7 +29,7 @@ async function main() {
         const now = Date.now();
         // console.log(`checking now=${now} lastChatTimestamp=${lastChatTimestamp} idleThreshold=${idleThreshold}`);
         if (now - lastChatTimestamp > idleThreshold) {
-            const fakeMessage = getRandomChatMessage();
+            const fakeMessage = getRandomChatMessage(commands);
             console.log("Chat idle. Sending synthetic message: " + fakeMessage);
             await actOnMessage(currentPid, fakeMessage);
         }

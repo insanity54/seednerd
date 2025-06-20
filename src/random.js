@@ -1,26 +1,13 @@
 
 
 const { directions, directionAliases } = require('./directions');
-const { commands } = require('./commands.js');
 const { all } = require('./phrases.js');
 
-function pickWeighted(actions) {
-    const totalWeight = actions.reduce((sum, action) => sum + action.weight, 0);
-    const r = Math.random() * totalWeight;
-    let acc = 0;
-
-    for (const action of actions) {
-        acc += action.weight;
-        if (r < acc) return action;
-    }
-
-    return actions[0]; // fallback
-}
 
 
 
-
-function getRandomChatMessage() {
+function getRandomChatMessage(commands) {
+    if (!commands) throw new Error('getRandomChatMessage requires commands as first arg');
 
     // Generate random args based on command
     function getArgs(cmd) {
@@ -65,12 +52,14 @@ function getRandomChatMessage() {
     return `!${command} ${args.join(' ')}`.trim();
 }
 
+
 function getRandomPhrase() {
-    return all[Math.floor(Math.random() * all.length)];
+    const index = Math.floor(Math.random() * all.length);
+    return all[index];
 }
 
 module.exports = {
     getRandomChatMessage,
-    pickWeighted,
     getRandomPhrase,
 }
+

@@ -49,9 +49,6 @@ async function sethome(wid) {
     await execa('xdotool', ['key', '--window', wid, 'Return']);
 }
 
-async function screenshot(wid) {
-    await execa('xdotool', ['key', '--window', wid, 'F12']);
-}
 
 async function spawn(wid) {
     await execa('xdotool', ['key', '--window', wid, 'slash']);
@@ -150,7 +147,7 @@ async function look(wid, direction = 'up', duration = 0.5) {
 }
 
 
-
+console.log(`getRandomPhrase=${getRandomPhrase}`)
 
 async function say(wid, ...parts) {
     assertWid(wid)
