@@ -64,43 +64,57 @@ function getSlotPosition(options) {
 
 // click on the sfinv tabs
 async function itab(wid, number = 1) {
-    const startX = 681;
-    const y = 211;
-    const tabSpacingX = 60; // adjust if spacing is different
-    const x = startX + number * tabSpacingX;
+    number = parseInt(number);
+    if (number < 1) {
+        throw new Error(`itab: tab number must be 1 or greater (got ${number})`);
+    }
+
+    const { x, y } = getSlotPosition({
+        startX: 681,
+        startY: 175,
+        slotWidth: 48,
+        slotHeight: 48,
+        marginX: 12, // tabSpacingX - slotWidth = margin
+        marginY: 0,
+        index: number - 1,
+        columns: 99 // just one row
+    });
+
+    console.log(`Clicking on tab ${number}: (${x}, ${y})`);
     await execa('xdotool', ['mousemove', x, y, 'click', 1]);
 }
 
+
 // Click on the sfinv crafting grid (1-indexed, 10 = output slot)
 async function igrid(wid, number = 1) {
-    number = parseInt(number)
+    number = parseInt(number);
     if (number < 1 || number > 10) {
         throw new Error(`igrid: slot number must be between 1 and 10 (got ${number})`);
     }
 
     if (number === 10) {
         const x = 1130;
-        const y = 389;
+        const y = 369;
         console.log(`Clicking on output slot: (${x}, ${y})`);
         await execa('xdotool', ['mousemove', x, y, 'click', 1]);
         return;
     }
 
-    const startX = 829;
-    const startY = 323;
-    const slotSpacingX = 63;
-    const slotSpacingY = 63;
+    const { x, y } = getSlotPosition({
+        startX: 829,
+        startY: 289,
+        slotWidth: 65,
+        slotHeight: 65,
+        marginX: 10,
+        marginY: 10,
+        index: number - 1,
+        columns: 3,
+    });
 
-    const index = number - 1; // convert to 0-based for grid math
-    const col = index % 3;
-    const row = Math.floor(index / 3);
-
-    const x = startX + col * slotSpacingX;
-    const y = startY + row * slotSpacingY;
-
-    console.log(`Clicking on slot ${number}: (${x}, ${y})`);
+    console.log(`Clicking on crafting slot ${number}: (${x}, ${y})`);
     await execa('xdotool', ['mousemove', x, y, 'click', 1]);
 }
+
 
 
 
@@ -132,7 +146,7 @@ async function iinv(wid, number = 1) {
 
     const { x, y } = getSlotPosition({
         startX: 699,
-        startY: 648,
+        startY: 638,
         slotWidth: 65,
         slotHeight: 65,
         marginX: 10,
