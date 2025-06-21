@@ -28,10 +28,8 @@ function getRandomChatMessage(commands) {
                 return [randomOne(slots)];
             case 'igrid':
                 return [randomOne(slots)];
-            case 'ibar':
-                return [randomOne(slots)];
             case 'iinv':
-                const invSlots = Array.from({ length: 24 }, (_, i) => i + 1);
+                const invSlots = Array.from({ length: 32 }, (_, i) => i + 1);
                 return [randomOne(invSlots)]
             case 'jump':
                 duration = Math.floor(Math.random() * 10) + 1;

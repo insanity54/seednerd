@@ -50,7 +50,7 @@ async function* readChat() {
     if (env.TEST) {
         setTimeout(() => {
             setInterval(() => {
-                availableCommands = commands.filter(c => ['ibar', 'igrid', 'iinv'].includes(c));
+                availableCommands = commands.filter(c => ['igrid', 'iinv'].includes(c));
                 console.log(`availableCOmmands=${availableCommands}`)
                 console.log(`availableCOmmands=${availableCommands}`)
                 console.log(`availableCOmmands=${availableCommands}`)

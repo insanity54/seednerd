@@ -24,7 +24,6 @@ const commands = [
     'inventory',
     'itab',
     'igrid',
-    'ibar',
     'iinv',
 ];
 
@@ -105,35 +104,35 @@ async function igrid(wid, number = 1) {
 
 
 
-// Click on the sfinv slot hotbar (1-indexed)
-async function ibar(wid, number = 1) {
-    number = parseInt(number);
-    if (number < 1 || number > 8) {
-        throw new Error(`ibar: slot number must be between 1 and 8 (got ${number})`);
-    }
+// // Click on the sfinv slot inv (1-indexed)
+// async function iinv(wid, number = 1) {
+//     number = parseInt(number);
+//     if (number < 1 || number > 32) {
+//         throw new Error(`ibar: slot number must be between 1 and 32 (got ${number})`);
+//     }
 
-    const startX = 699;
-    const y = 648;
-    const slotSize = 65;
-    const slotMargin = 10;
-    const slotSpacingX = slotSize + slotMargin;
+//     const startX = 699;
+//     const y = 648;
+//     const slotSize = 65;
+//     const slotMargin = 10;
+//     const slotSpacingX = slotSize + slotMargin;
 
-    const x = startX + (number - 1) * slotSpacingX;
+//     const x = startX + (number - 1) * slotSpacingX;
 
-    console.log(`Clicking on hotbar slot ${number}: (${x}, ${y})`);
-    await execa('xdotool', ['mousemove', x, y, 'click', 1]);
-}
+//     console.log(`Clicking on hotbar slot ${number}: (${x}, ${y})`);
+//     await execa('xdotool', ['mousemove', x, y, 'click', 1]);
+// }
 
-// Click on the player's inventory grid (1-indexed, 16 cols × 3 rows)
+// Click on the player's inventory grid (1-indexed, 16 cols × 4 rows)
 async function iinv(wid, number = 1) {
     number = parseInt(number);
-    if (number < 1 || number > 24) {
-        throw new Error(`iinv: slot number must be between 1 and 24 (got ${number})`);
+    if (number < 1 || number > 32) {
+        throw new Error(`iinv: slot number must be between 1 and 32 (got ${number})`);
     }
 
     const { x, y } = getSlotPosition({
-        startX: 700,
-        startY: 722,
+        startX: 699,
+        startY: 648,
         slotWidth: 65,
         slotHeight: 65,
         marginX: 10,
@@ -370,7 +369,6 @@ module.exports = {
     camera,
     itab,
     igrid,
-    ibar,
     iinv,
     inventory,
     commands,
