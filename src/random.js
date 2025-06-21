@@ -3,7 +3,11 @@
 const { directions, directionAliases } = require('./directions');
 const { all } = require('./phrases.js');
 
+const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+function randomOne(array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
 
 
 function getRandomChatMessage(commands) {
@@ -20,6 +24,15 @@ function getRandomChatMessage(commands) {
             case 'say':
                 // say some random phrase
                 return [all[Math.floor(Math.random() * all.length)]];
+            case 'itab':
+                return [randomOne(slots)];
+            case 'igrid':
+                return [randomOne(slots)];
+            case 'ibar':
+                return [randomOne(slots)];
+            case 'iinv':
+                const invSlots = Array.from({ length: 24 }, (_, i) => i + 1);
+                return [randomOne(invSlots)]
             case 'jump':
                 duration = Math.floor(Math.random() * 10) + 1;
                 return [directions[Math.floor(Math.random() * directions.length)], duration];
@@ -34,7 +47,6 @@ function getRandomChatMessage(commands) {
             case 'enter':
                 return []
             case 'select':
-                const slots = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
                 return [slots[Math.floor(Math.random() * slots.length)]];
             default:
                 return [];
@@ -61,5 +73,6 @@ function getRandomPhrase() {
 module.exports = {
     getRandomChatMessage,
     getRandomPhrase,
+    randomOne,
 }
 

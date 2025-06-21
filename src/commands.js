@@ -20,6 +20,12 @@ const commands = [
     'turn',
     'screenshot',
     'esc',
+    'camera',
+    'inventory',
+    'itab',
+    'igrid',
+    'ibar',
+    'iinv',
 ];
 
 
@@ -29,8 +35,124 @@ function assertWid(wid) {
     if (!wid) throw new Error('first arg wid required');
 }
 
+async function inventory(wid) {
+    await execa('xdotool', ['key', '--window', wid, 'I']);
+}
+
+function getSlotPosition(options) {
+    const startX = options.startX;
+    const startY = options.startY;
+    const slotWidth = options.slotWidth;
+    const slotHeight = options.slotHeight;
+    const marginX = options.marginX || 7;
+    const marginY = options.marginY || 7;
+    const index = options.index;
+    const columns = options.columns || 8;
+
+    const spacingX = slotWidth + marginX;
+    const spacingY = slotHeight + marginY;
+
+    const col = index % columns;
+    const row = Math.floor(index / columns);
+
+    return {
+        x: startX + col * spacingX,
+        y: startY + row * spacingY
+    };
+}
+
+
+
+// click on the sfinv tabs
+async function itab(wid, number = 1) {
+    const startX = 681;
+    const y = 211;
+    const tabSpacingX = 60; // adjust if spacing is different
+    const x = startX + number * tabSpacingX;
+    await execa('xdotool', ['mousemove', x, y, 'click', 1]);
+}
+
+// Click on the sfinv crafting grid (1-indexed, 10 = output slot)
+async function igrid(wid, number = 1) {
+    number = parseInt(number)
+    if (number < 1 || number > 10) {
+        throw new Error(`igrid: slot number must be between 1 and 10 (got ${number})`);
+    }
+
+    if (number === 10) {
+        const x = 1130;
+        const y = 389;
+        console.log(`Clicking on output slot: (${x}, ${y})`);
+        await execa('xdotool', ['mousemove', x, y, 'click', 1]);
+        return;
+    }
+
+    const startX = 829;
+    const startY = 323;
+    const slotSpacingX = 63;
+    const slotSpacingY = 63;
+
+    const index = number - 1; // convert to 0-based for grid math
+    const col = index % 3;
+    const row = Math.floor(index / 3);
+
+    const x = startX + col * slotSpacingX;
+    const y = startY + row * slotSpacingY;
+
+    console.log(`Clicking on slot ${number}: (${x}, ${y})`);
+    await execa('xdotool', ['mousemove', x, y, 'click', 1]);
+}
+
+
+
+// Click on the sfinv slot hotbar (1-indexed)
+async function ibar(wid, number = 1) {
+    number = parseInt(number);
+    if (number < 1 || number > 8) {
+        throw new Error(`ibar: slot number must be between 1 and 8 (got ${number})`);
+    }
+
+    const startX = 699;
+    const y = 648;
+    const slotSize = 65;
+    const slotMargin = 10;
+    const slotSpacingX = slotSize + slotMargin;
+
+    const x = startX + (number - 1) * slotSpacingX;
+
+    console.log(`Clicking on hotbar slot ${number}: (${x}, ${y})`);
+    await execa('xdotool', ['mousemove', x, y, 'click', 1]);
+}
+
+// Click on the player's inventory grid (1-indexed, 16 cols × 3 rows)
+async function iinv(wid, number = 1) {
+    number = parseInt(number);
+    if (number < 1 || number > 24) {
+        throw new Error(`iinv: slot number must be between 1 and 24 (got ${number})`);
+    }
+
+    const { x, y } = getSlotPosition({
+        startX: 700,
+        startY: 722,
+        slotWidth: 65,
+        slotHeight: 65,
+        marginX: 10,
+        marginY: 10,
+        index: number - 1,
+        columns: 8,
+    });
+
+    console.log(`Clicking on inventory slot ${number}: (${x}, ${y})`);
+    await execa('xdotool', ['mousemove', x, y, 'click', 1]);
+}
+
+
 async function esc(wid) {
     await execa('xdotool', ['key', '--window', wid, 'Escape']);
+}
+
+async function camera(wid) {
+    await execa('xdotool', ['key', '--window', wid, 'C']);
 }
 
 async function enter(wid) {
@@ -122,6 +244,7 @@ async function turn(wid, direction = 'right', distance = 3, durationSeconds = 0.
         console.error(`Failed to turn ${direction}:`, err);
     }
 }
+
 
 
 async function look(wid, direction = 'up', duration = 0.5) {
@@ -228,7 +351,6 @@ async function screenshot(wid) {
 }
 
 
-
 module.exports = {
     say,
     drop,
@@ -245,5 +367,11 @@ module.exports = {
     home,
     spawn,
     esc,
+    camera,
+    itab,
+    igrid,
+    ibar,
+    iinv,
+    inventory,
     commands,
 }

@@ -50,7 +50,7 @@ async function* launch() {
             ])
         } else {
             args = args.concat([
-                '--world', '/home/cj/.minetest/worlds/guns'
+                '--world', env.LUANTI_WORLD_PATH
             ])
         }
 

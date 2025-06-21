@@ -41,10 +41,8 @@ async function main() {
             nextLuanti.then(value => ({ source: 'Luanti', value })),
         ]);
 
-
         console.debug(`Got value from generator ${result.source}: ${JSON.stringify(result.value.value)}.`);
         console.log(result.value.value)
-
 
         // Only advance the generator that just yielded a value
         if (result.source === 'Chat') {
@@ -52,7 +50,7 @@ async function main() {
             console.log(`payload:${JSON.stringify(payload)}`)
             const isActed = await actOnMessage(currentPid, result.value.value.message)
             if (isActed) {
-                // we got a message that caused an action, so we reset the timer.
+                // we got a message that caused an action, so we reset the idle timer.
                 lastChatTimestamp = Date.now(); // reset the timer so we aren't considered idle
             }
             nextChat = chat.next();

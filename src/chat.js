@@ -2,7 +2,7 @@ const { ChatClient } = require('@twurple/chat');
 const { StaticAuthProvider } = require('@twurple/auth');
 const { env } = require('./config.js');
 const { getRandomChatMessage } = require('./random.js');
-
+const { commands } = require('./commands.js')
 
 
 // Twitch credentials
@@ -22,7 +22,6 @@ const chatClient = new ChatClient({
 
 // Store messages in memory
 let receivedMessages = [];
-
 
 
 
@@ -49,9 +48,16 @@ function startChatClient(chatClient) {
 // Read chat as an async generator
 async function* readChat() {
     if (env.TEST) {
-        setInterval(() => {
-            receivedMessages.push({ message: getRandomChatMessage() })
-        }, 3000)
+        setTimeout(() => {
+            setInterval(() => {
+                availableCommands = commands.filter(c => ['ibar', 'igrid', 'iinv'].includes(c));
+                console.log(`availableCOmmands=${availableCommands}`)
+                console.log(`availableCOmmands=${availableCommands}`)
+                console.log(`availableCOmmands=${availableCommands}`)
+                receivedMessages.push({ message: getRandomChatMessage(availableCommands) })
+            }, 2000)
+        }, 5000)
+
     }
 
     while (true) {

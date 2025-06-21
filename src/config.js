@@ -5,12 +5,14 @@ const EnvSchema = z.object({
     LUANTI_USERNAME: z.string(),
     LUANTI_PASSWORD: z.string(),
     LUANTI_ADDRESS: z.string(),
+    LUANTI_WORLD_PATH: z.string().optional(),
     TWITCH_CHANNEL: z.string(),
     TWITCH_CLIENT_ID: z.string(),
     TWITCH_ACCESS_TOKEN: z.string(),
     TWITCH_BOT_NAME: z.string(),
     ONLINE: z.coerce.boolean(),
     TEST: z.coerce.boolean(),
+
     WINDOW_XY: z
         .string()
         .default('0,0')
