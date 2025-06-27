@@ -12,6 +12,7 @@ const EnvSchema = z.object({
     TWITCH_BOT_NAME: z.string(),
     ONLINE: z.coerce.boolean(),
     TEST: z.coerce.boolean(),
+    OPENAI_COMPATIBLE_API_KEY: z.string(),
 
     WINDOW_XY: z
         .string()

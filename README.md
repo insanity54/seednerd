@@ -2,7 +2,9 @@
 
 ## Dependencies
 
-All these must be on the $PATH
+X11. (Not wayland.) Forget about running on Wayland. This program is meant to run 24/7 fullscreen, start/stop several programs and Wayland Pipewire(?) security *will* intrrupt that. MX Linux tested and recommended. Single monitor, 1920x1080. An old laptop is perfect for this.
+
+All these binaries must be on the $PATH
 
 * node
 * pnpm
@@ -10,12 +12,12 @@ All these must be on the $PATH
 * dotenvx
 * aplay
 * luanti
-
+* scrot
 
 
 ## issues
 
-* [ ] crafting
+* [x] crafting
 * [ ] scooter can get stuck on a vehicle and there's no way to get off
 * [ ] `!help <command>` doesn't give any response
 * [ ] twitch chat doesn't let chatters post similar messages

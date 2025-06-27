@@ -99,7 +99,14 @@ async function actOnMessage(pid, message) {
     }
 }
 
+
+async function actOnJSON(pid, message) {
+    console.debug(`actOnJSON with pid=${pid} and message=${message}`)
+
+}
+
 module.exports = {
     actOnMessage,
+    actOnJSON,
     getCommand,
 };

@@ -68,9 +68,19 @@ function getRandomPhrase() {
     return all[index];
 }
 
+function randomString(len = 8) {
+    let result = '';
+    while (result.length < len) {
+        result += Math.random().toString(36).slice(2);
+    }
+    return result.slice(0, len);
+}
+
+
 module.exports = {
     getRandomChatMessage,
     getRandomPhrase,
     randomOne,
+    randomString,
 }
 
